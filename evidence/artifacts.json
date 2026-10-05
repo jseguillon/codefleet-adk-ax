@@ -1,0 +1,37 @@
+[
+  {
+    "repo": "api",
+    "path": "contract.json",
+    "before": "",
+    "content": "{\"version\":1,\"inputs\":[\"total_cents:int\u003e=0\",\"percent:int:0..100\"],\"boolean_inputs\":\"rejected\",\"rounding\":\"floor\",\"example\":{\"total_cents\":999,\"percent\":15,\"result\":849}}\n",
+    "sha256": "c7acbd2eb1150cc81a82e49435b4b5be2a4e96f0e04cfa031a030477c1894ff7"
+  },
+  {
+    "repo": "api",
+    "path": "pricing.py",
+    "before": "12334d2f738a7da6e10cf07ce582452389c29377ccf1d6b0f086b7c2751968c2",
+    "content": "\"\"\"Coupon pricing in integer cents.\"\"\"\ndef apply_coupon(total_cents: int, percent: int) -\u003e int:\n    if type(total_cents) is not int or type(percent) is not int:\n        raise ValueError('integer inputs required')\n    if total_cents \u003c 0 or not 0 \u003c= percent \u003c= 100:\n        raise ValueError('invalid coupon input')\n    return total_cents * (100 - percent) / 100\n",
+    "sha256": "ce188d97cabe1b555b04eb55f3eb59fbff746e03a54f5980286f2c954fe35ecb"
+  },
+  {
+    "repo": "web",
+    "path": "coupon.mjs",
+    "before": "6807f3df7136f009228a3f7387cf669f60d56bb170e85b2bd554298e54a16058",
+    "content": "export function previewCoupon(totalCents, percent) {\n  if (!Number.isSafeInteger(totalCents) || !Number.isSafeInteger(percent) || totalCents \u003c 0 || percent \u003c 0 || percent \u003e 100) throw new Error('Invalid coupon input');\n  return Math.floor(totalCents * (100 - percent) / 100);\n}\n",
+    "sha256": "37471f0f7d74d3dc851d091cd8b49afe0f037b8db19fa3715d099a32f32acd70"
+  },
+  {
+    "repo": "docs",
+    "path": "README.md",
+    "before": "7adc6901c0f22775390226ad26cf28a5dcf522cd86ed67da46eb485ff623406c",
+    "content": "# CodeFleet Shop — Coupons\n\nPrices use integer cents. Supply total_cents \u003e= 0 and an integer percent between 0 and 100. Booleans and invalid values are rejected. The final price is rounded down to whole cents.\n\nExample: 999 cents with a 15% coupon gives 849 cents (8.49 €). The browser preview follows the same contract as the API.\n",
+    "sha256": "e4d79a2aee81086a84448e4ab45ce29792b74f79c170b9835a2a4e2fa9a9062b"
+  },
+  {
+    "repo": "api",
+    "path": "pricing.py",
+    "before": "ce188d97cabe1b555b04eb55f3eb59fbff746e03a54f5980286f2c954fe35ecb",
+    "content": "\"\"\"Coupon pricing in integer cents.\"\"\"\ndef apply_coupon(total_cents: int, percent: int) -\u003e int:\n    if type(total_cents) is not int or type(percent) is not int:\n        raise ValueError('integer inputs required')\n    if total_cents \u003c 0 or not 0 \u003c= percent \u003c= 100:\n        raise ValueError('invalid coupon input')\n    return total_cents * (100 - percent) // 100\n",
+    "sha256": "d14513f4843f59895c17e7ba8c75540f363a4b887324d9f11fae9e92dfd53e22"
+  }
+]

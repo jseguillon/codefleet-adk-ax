@@ -1,0 +1,7 @@
+bin/
+runs/
+__pycache__/
+*.pyc
+.env
+node_modules/
+validation-local.txt

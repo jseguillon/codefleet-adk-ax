@@ -1,0 +1,7 @@
+services:
+  demo:
+    build: .
+    entrypoint: ["/usr/local/bin/codefleet"]
+    command: ["demo", "--listen", "0.0.0.0:8088", "--worker-broker", "http://127.0.0.1:8088", "--out", "/runs"]
+    ports: ["127.0.0.1:8088:8088"]
+    volumes: ["./runs:/runs"]

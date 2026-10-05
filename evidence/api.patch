@@ -1,0 +1,21 @@
+diff --git a/contract.json b/contract.json
+new file mode 100644
+index 0000000..ee89087
+--- /dev/null
++++ b/contract.json
+@@ -0,0 +1 @@
++{"version":1,"inputs":["total_cents:int>=0","percent:int:0..100"],"boolean_inputs":"rejected","rounding":"floor","example":{"total_cents":999,"percent":15,"result":849}}
+diff --git a/pricing.py b/pricing.py
+index 9038375..0b5dd20 100644
+--- a/pricing.py
++++ b/pricing.py
+@@ -1,3 +1,7 @@
+-"""CodeFleet demo: prices are integers in cents."""
++"""Coupon pricing in integer cents."""
+ def apply_coupon(total_cents: int, percent: int) -> int:
+-    raise NotImplementedError("Implement coupon pricing")
++    if type(total_cents) is not int or type(percent) is not int:
++        raise ValueError('integer inputs required')
++    if total_cents < 0 or not 0 <= percent <= 100:
++        raise ValueError('invalid coupon input')
++    return total_cents * (100 - percent) // 100

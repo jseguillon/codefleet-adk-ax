@@ -1,0 +1,13 @@
+diff --git a/README.md b/README.md
+index 66ba442..a47ed84 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,5 @@
+-# CodeFleet Shop
++# CodeFleet Shop — Coupons
+ 
+-Three repositories: pricing API, browser preview, product documentation.
+-Coupon support is pending.
++Prices use integer cents. Supply total_cents >= 0 and an integer percent between 0 and 100. Booleans and invalid values are rejected. The final price is rounded down to whole cents.
++
++Example: 999 cents with a 15% coupon gives 849 cents (8.49 €). The browser preview follows the same contract as the API.

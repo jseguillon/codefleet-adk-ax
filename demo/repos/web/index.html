@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Coupon preview</title>
+<style>body{font:18px system-ui;background:#102132;color:#fff;margin:10vh auto;max-width:650px;padding:24px}input,button{font:inherit;padding:12px;margin:8px;border-radius:8px}output{display:block;font-size:38px;margin:20px}</style>
+<h1>CodeFleet Shop</h1><p>Distributed agents added coupon support.</p>
+<label>Total cents <input id="total" type="number" value="999"></label>
+<label>Discount % <input id="percent" type="number" value="15"></label>
+<button id="go">Preview coupon</button><output id="price"></output>
+<script type="module">import {previewCoupon} from './coupon.mjs';
+go.onclick=()=>{try{price.textContent=(previewCoupon(+total.value,+percent.value)/100).toFixed(2)+' €'}catch(e){price.textContent=e.message}};go.click();</script></html>

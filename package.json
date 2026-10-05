@@ -1,0 +1,6 @@
+{
+  "name": "codefleet-evidence-capture",
+  "private": true,
+  "scripts": { "capture": "node scripts/capture_demo.mjs" },
+  "devDependencies": { "playwright": "1.62.1" }
+}

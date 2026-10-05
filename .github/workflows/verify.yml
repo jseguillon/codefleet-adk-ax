@@ -1,0 +1,45 @@
+name: Verify distributed coding demo
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: make verify
+      - run: npm ci && npx playwright install --with-deps chromium
+      - name: Record and assert the evidence dashboard
+        run: |
+          replay_path=$(rg --files runs/repair-and-resume | rg '/replay.html$' | head -1)
+          npm run capture -- "$replay_path" runs/ui-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: distributed-code-evidence
+          path: |
+            runs/**/report.json
+            runs/**/events.jsonl
+            runs/**/replay.html
+            runs/**/artifacts.json
+            runs/**/MR.md
+            runs/**/*.patch
+            runs/**/worker.log
+            runs/ui-evidence/*.png
+            runs/ui-evidence/*.webm
+          retention-days: 14
